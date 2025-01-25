@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auto Login</title>
+    <script>
+        function autoLogin() {
+            console.log("Starting autoLogin...");
+
+            // Use a different CORS proxy
+            const proxyUrl = 'https://corsproxy.io/?';
+            const targetUrl = 'https://burjuman.matrixvyom.com/COSECVisitor/Login/CheckLogin';
+
+            fetch(proxyUrl + targetUrl, {
+                method: 'POST',
+                body: new URLSearchParams({
+                    loginid: 'sa',
+                    pwd: '1ReeUFdCYLKSC754hDbM5w%3D%3D',
+                    rememberme: 'false',
+                    selectedIcon: 'user',
+                    IsForLogout: 'false',
+                    stationLocation: '1 B-Hive',
+                    stationID: '1',
+                    lngCode: 'EN-US'
+                }),
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'Origin': 'https://burjuman.matrixvyom.com',
+                    'Referer': 'https://burjuman.matrixvyom.com/COSECVisitor/Login'
+                }
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.text();
+            })
+            .then(text => {
+                console.log("Login response:", text);
+                window.location.href = 'https://burjuman.matrixvyom.com/COSECVisitor/Default/Default#/Menu/VisitorLogin';
+            })
+            .catch(error => {
+                console.error('Login error:', error);
+                alert('Unable to access the system');
+            });
+        }
+
+        // Automatically trigger the autoLogin function when the page loads
+        window.onload = function() {
+            console.log("Page loaded, running autoLogin...");
+            autoLogin();
+        };
+    </script>
+</head>
+<body>
+    <p>Redirecting to the management system...</p>
+</body>
+</html>
